@@ -35,5 +35,25 @@ class UserRepository {
         }
         return liveUserInfoResponse
     }
-    
+
+    /** Fetch User Profile Data from Network */
+    fun loadUserAlbumData(): MutableLiveData<List<UserAlbum>>? {
+
+        val retrofitCall = create().getUserAlbum()
+
+        retrofitCall.enqueue(object : Callback<List<UserAlbum>> {
+            override fun onFailure(call: Call<List<UserAlbum>>, t: Throwable?) {
+            }
+
+            override fun onResponse(
+                call: Call<List<UserAlbum>>,
+                response: retrofit2.Response<List<UserAlbum>>
+            ) {
+
+                val lists = response.body()
+                liveUserAlbumResponse.value = lists
+            }
+        })
+        return liveUserAlbumResponse
+    }
 }

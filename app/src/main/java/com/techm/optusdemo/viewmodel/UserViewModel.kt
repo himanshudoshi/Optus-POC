@@ -17,7 +17,7 @@ import com.techm.optusdemo.repository.UserRepository
         return userRepository.loadUserInfoData()
     }
 
-    fun getUserProfileData(): MutableLiveData<List<UserAlbum>>? {
-        return userRepository.loadUserProfileData()
+    fun getUserAlbumData(): MutableLiveData<List<UserAlbum>>? {
+        return userRepository.loadUserAlbumData()
     }
 }

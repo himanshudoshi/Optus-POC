@@ -1,7 +1,7 @@
 package com.techm.optusdemo.model.useralbum
 
 /**
- * data class for User Profiles
+ * data class for User Album
  */
 data class UserAlbum(
 

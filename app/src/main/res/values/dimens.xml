@@ -10,5 +10,6 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_150">150dp</dimen>
     <dimen name="margin_350">350dp</dimen>
+    <dimen name="margin_450">450dp</dimen>
 
 </resources>

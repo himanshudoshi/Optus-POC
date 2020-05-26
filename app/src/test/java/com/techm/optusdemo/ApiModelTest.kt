@@ -37,7 +37,7 @@ class ApiModelTest {
         Assert.assertEquals(userInfoMock.address.suite, "Apt. 556")
         Assert.assertEquals(userInfoMock.address.city, "Gwenborough")
         Assert.assertEquals(userInfoMock.address.zipcode, "92998-3874")
-        Assert.assertEquals(userInfoMock.address.geo.lat, "-37.3159")
+        Assert.assertEquals(userInfoMock.address.geo.lat, "-37.3159.")
         Assert.assertEquals(userInfoMock.address.geo.lng, "81.1496")
     }
 

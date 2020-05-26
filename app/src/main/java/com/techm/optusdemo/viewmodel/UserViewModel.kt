@@ -9,9 +9,7 @@ import com.techm.optusdemo.repository.UserRepository
 /**
  *  The ViewModel for fetching a list of User Details.
  */
- class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
-
-   // private val mService = User()
+class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getUserInfoData(): MutableLiveData<List<UserInfo>>? {
         return userRepository.loadUserInfoData()

@@ -1,19 +1,24 @@
 package com.techm.optusdemo.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.model.useralbum.UserAlbum
 import com.techm.optusdemo.network.UserApi.Factory.create
+import com.techm.optusdemo.utils.Event
 import retrofit2.Call
 import retrofit2.Callback
 
 /**
  * Retrofit Service for Network Operations
  */
-class UserRepository {
+class UserRepository() {
 
     val liveUserInfoResponse: MutableLiveData<List<UserInfo>> = MutableLiveData()
     val liveUserAlbumResponse: MutableLiveData<List<UserAlbum>> = MutableLiveData()
+    private val statusMessage = MutableLiveData<Event<String>>()
+    val message: LiveData<Event<String>>
+        get() = statusMessage
 
     /** Fetch User Info Data from Network */
     fun loadUserInfoData(): MutableLiveData<List<UserInfo>>? {
@@ -21,6 +26,7 @@ class UserRepository {
 
             enqueue(object : Callback<List<UserInfo>> {
                 override fun onFailure(call: Call<List<UserInfo>>, t: Throwable?) {
+                    statusMessage.value = Event("Something Went Wrong")
                 }
 
                 override fun onResponse(
@@ -43,6 +49,7 @@ class UserRepository {
 
         retrofitCall.enqueue(object : Callback<List<UserAlbum>> {
             override fun onFailure(call: Call<List<UserAlbum>>, t: Throwable?) {
+                statusMessage.value = Event("Something Went Wrong")
             }
 
             override fun onResponse(

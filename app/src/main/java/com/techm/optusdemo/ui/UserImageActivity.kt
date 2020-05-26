@@ -34,7 +34,6 @@ class UserImageActivity : AppCompatActivity() {
         val photoId: String? = bundle.getStringExtra("photoId")
         val title: String? = bundle.getStringExtra("title")
         val url: String? = bundle.getStringExtra("url")
-        progressBar.visibility = View.VISIBLE
 
         mBindings.albumId.text = getString(R.string.album_id) + albumId
         mBindings.photoId.text = getString(R.string.photo_id) + photoId

@@ -21,7 +21,6 @@ import com.techm.optusdemo.repository.UserRepository
 import com.techm.optusdemo.viewmodel.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_user_image.*
 import kotlinx.android.synthetic.main.activity_user_image.album_id
-import java.util.stream.Collectors
 
 /**
  * Activity class displays User ID , Album ID and Image in Recyclerview in the screen
@@ -62,46 +61,40 @@ class UserAlbumActivity : AppCompatActivity() {
                 this,
                 getString(R.string.internet_connection_not_available),
                 Toast.LENGTH_SHORT
-            )
-                .show()
+            ).show()
         }
     }
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getUserProfileImages() {
+
         userRepository = UserRepository()
         factory = UserViewModelFactory(userRepository)
         val mUserAlbumViewModel =
             ViewModelProviders.of(this, factory).get(UserViewModel::class.java)
-        mUserAlbumViewModel.getUserAlbumData()
-            ?.observe(this@UserAlbumActivity, Observer { userAlbumList ->
-                val articleList = userAlbumList as ArrayList<UserAlbum>
-                val filteredArticleList =
-                    articleList.stream()
-                        .filter { androidList -> androidList.albumId.toString() == id }
-                        .collect(Collectors.toList())
-                image_recyclerView.adapter =
-                    UserAlbumAdapter(
-                        this@UserAlbumActivity,
-                        filteredArticleList as ArrayList<UserAlbum>,
-                        object :
-                            ItemImageClickListener {
-                            override fun onItemClick(
-                                albumId: Int,
-                                photoId: Int,
-                                title: String,
-                                url: String
-                            ) {
-                                intent =
-                                    Intent(this@UserAlbumActivity, UserImageActivity::class.java)
-                                intent.putExtra("albumId", albumId.toString())
-                                intent.putExtra("photoId", photoId.toString())
-                                intent.putExtra("title", title)
-                                intent.putExtra("url", url)
-                                startActivity(intent)
-                            }
-                        })
-            })
+
+        mUserAlbumViewModel.getUserAlbumData()?.observe(this@UserAlbumActivity, Observer { it ->
+            val filteredAlbumList = it.filter { it.albumId.toString() == id }
+            image_recyclerView.adapter =
+                UserAlbumAdapter(this@UserAlbumActivity,
+                    filteredAlbumList as ArrayList<UserAlbum>, object :
+                        ItemImageClickListener {
+                        override fun onItemClick(
+                            albumId: Int,
+                            photoId: Int,
+                            title: String,
+                            url: String
+                        ) {
+                            intent =
+                                Intent(this@UserAlbumActivity, UserImageActivity::class.java)
+                            intent.putExtra("albumId", albumId.toString())
+                            intent.putExtra("photoId", photoId.toString())
+                            intent.putExtra("title", title)
+                            intent.putExtra("url", url)
+                            startActivity(intent)
+                        }
+                    })
+        })
     }
 }

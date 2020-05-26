@@ -13,14 +13,14 @@ import com.techm.optusdemo.network.ItemClickListener
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.ui.UserInfoActivity
 
-/** Class UserDataAdapter to populate items */
-class UserDataAdapter(
+/** Class UserInfoAdapter to populate items */
+class UserInfoAdapter(
     private var context: UserInfoActivity,
-    private var mUserList: ArrayList<UserInfo>,
+    private var mUserInfoList: ArrayList<UserInfo>,
     private val itemClick: ItemClickListener
-) : RecyclerView.Adapter<UserDataAdapter.UserViewHolder>() {
+) : RecyclerView.Adapter<UserInfoAdapter.UserViewHolder>() {
 
-      companion object {
+    companion object {
         var mItemClickListener: ItemClickListener? = null
     }
 
@@ -38,24 +38,27 @@ class UserDataAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         mItemClickListener = itemClick
-        holder.bind(mUserList[position])
+        holder.bind(mUserInfoList[position])
 
-          RxView.clicks(holder.binding.root).subscribe {
-              //the whole view subscribed
-              mItemClickListener!!.onItemClick(position, mUserList[position].id.toString())
-          }
+        RxView.clicks(holder.binding.root).subscribe {
+            //the whole view subscribed
+            mItemClickListener!!.onItemClick(position, mUserInfoList[position].id.toString())
+        }
     }
 
     /** Return item counts of Users. */
     override fun getItemCount(): Int {
-        return mUserList.size
+        return mUserInfoList.size
     }
 
     /** This Class displays UserDetails in RecyclerView */
-    class UserViewHolder(val binding : RowUserInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+    class UserViewHolder(val binding: RowUserInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: UserInfo) {
-            binding.setVariable(BR.data,data) //BR - generated class; BR.user -- 'user' is variable name declared in layout
+            binding.setVariable(
+                BR.data,
+                data
+            ) //BR - generated class; BR.user -- 'user' is variable name declared in layout
             binding.data = data
             binding.executePendingBindings()
         }

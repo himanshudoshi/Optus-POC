@@ -44,8 +44,8 @@
 
                 <ImageView
                     android:id="@+id/user_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/margin_350"
+                    android:layout_height="@dimen/margin_350"
                     android:layout_margin="5dp"
                     android:contentDescription="@string/app_name"
                     app:srcCompat="@drawable/image_not_available" />

@@ -13,11 +13,10 @@ import com.techm.optusdemo.R
 import com.techm.optusdemo.model.useralbum.UserAlbum
 import com.techm.optusdemo.network.ItemImageClickListener
 import com.techm.optusdemo.ui.UserAlbumActivity
-import com.techm.optusdemo.utils.ImageLoader
 import kotlinx.android.synthetic.main.row_user_album.view.*
 
 
-/** Class UserAlbumAdapter to populate items */
+/** Class UserAlbum Adapter to populate items */
 class UserAlbumAdapter(
     private var context: UserAlbumActivity,
     private var mUserList: ArrayList<UserAlbum>,

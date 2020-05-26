@@ -1,5 +1,6 @@
 package com.techm.optusdemo.network
 
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.techm.optusdemo.model.userinfo.UserInfo
@@ -7,6 +8,7 @@ import com.techm.optusdemo.model.useralbum.UserAlbum
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -21,6 +23,12 @@ interface UserApi {
 
     @GET("photos")
     fun getUserAlbum(): Call<List<UserAlbum>>
+
+    /*  @GET("users")
+      fun getUserInfo(): Response<MutableLiveData<UserInfo>>
+
+      @GET("photos")
+      fun getUserAlbum(): Response<MutableLiveData<UserAlbum>>*/
 
     companion object Factory {
 

@@ -9,10 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.techm.optusdemo.R
-import com.techm.optusdemo.adapter.UserDataAdapter
+import com.techm.optusdemo.adapter.UserInfoAdapter
 import com.techm.optusdemo.databinding.ActivityMainBinding
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.network.ItemClickListener
+import com.techm.optusdemo.network.UserApi
 import com.techm.optusdemo.repository.UserRepository
 import com.techm.optusdemo.viewmodel.UserViewModel
 import com.techm.optusdemo.utils.Utils
@@ -24,6 +25,8 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class UserInfoActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
+    private lateinit var userApi: UserApi
+
     private lateinit var factory: UserViewModelFactory
     private var mBindings: ActivityMainBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -35,7 +38,7 @@ class UserInfoActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         mBindings!!.recyclerView.layoutManager = linearLayoutManager
         if (Utils.hasNetwork(this) == true) {
-            getUserProfileData()
+            getUserInfoData()
         } else makeText(
             this,
             getString(R.string.internet_connection_not_available),
@@ -44,16 +47,17 @@ class UserInfoActivity : AppCompatActivity() {
     }
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */
-    private fun getUserProfileData() {
+    private fun getUserInfoData() {
 
         //live data
         userRepository = UserRepository()
         factory = UserViewModelFactory(userRepository)
         val mUserViewModel =
             ViewModelProviders.of(this@UserInfoActivity, factory).get(UserViewModel::class.java)
+
         mUserViewModel.getUserInfoData()?.observe(this, Observer { userList ->
             recyclerView.adapter =
-                UserDataAdapter(this@UserInfoActivity, userList as ArrayList<UserInfo>, object :
+                UserInfoAdapter(this@UserInfoActivity, userList as ArrayList<UserInfo>, object :
                     ItemClickListener {
                     override fun onItemClick(pos: Int, name: String) {
                         intent = Intent(this@UserInfoActivity, UserAlbumActivity::class.java)
@@ -64,4 +68,5 @@ class UserInfoActivity : AppCompatActivity() {
         })
     }
 }
+
 

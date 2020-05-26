@@ -5,9 +5,7 @@
     tools:context="com.techm.optusdemo.ui.UserInfoActivity">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="data"
             type="com.techm.optusdemo.model.userinfo.UserInfo" />

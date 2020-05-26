@@ -9,7 +9,7 @@ import org.junit.Before
 /**
  *   Api Model Test Class
  */
-class ApigetModelTest {
+class ApiModelTest {
 
     lateinit var userInfoMock: UserInfo
 

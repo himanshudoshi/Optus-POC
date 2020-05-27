@@ -70,7 +70,8 @@ class UserViewModelTest {
         `when`(this.mUserApi.getUserInfo()).thenAnswer {
             return@thenAnswer Maybe.just(ArgumentMatchers.any<UserRepository>())
         }
-      
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
+        this.mUserRepository.liveUserInfoResponse.observeForever(observer)
         this.mUserViewModel.getUserInfoData()
 
         assertNotNull(this.mUserViewModel.getUserInfoData())
@@ -82,6 +83,9 @@ class UserViewModelTest {
         `when`(this.mUserApi.getUserInfo()).thenAnswer {
             return@thenAnswer Maybe.error<SocketException>(SocketException("No network here"))
         }
+
+          val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
+          this.mUserRepository.liveUserInfoResponse.observeForever(observer)
 
         this.mUserViewModel.getUserInfoData()
 
@@ -96,6 +100,8 @@ class UserViewModelTest {
             return@thenAnswer Maybe.just(ArgumentMatchers.any<UserRepository>())
         }
 
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
+        this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
         this.mUserViewModel.getUserAlbumData()
         assertNotNull(this.mUserViewModel.getUserAlbumData())
     }
@@ -107,7 +113,11 @@ class UserViewModelTest {
             return@thenAnswer Maybe.error<SocketException>(SocketException("No network here"))
         }
 
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
+        this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
+        this.mUserViewModel.getUserAlbumData()
         assertNotNull(this.mUserViewModel.getUserAlbumData())
+
     }
 }
 

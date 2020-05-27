@@ -21,66 +21,62 @@ import org.mockito.MockitoAnnotations
 import org.mockito.Spy
 import java.net.SocketException
 
-/** View Model Unit Test*/
+/** Album View Model Unit Test*/
 @RunWith(JUnit4::class)
-class UserViewModelTest {
+class AlbumViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Spy
     lateinit var mUserApi: UserApi
-    private lateinit var mUserViewModel: UserViewModel
+    private lateinit var mAlbumViewModel: AlbumViewModel
     private lateinit var mUserRepository: UserRepository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         this.mUserRepository = UserRepository()
-        this.mUserViewModel = UserViewModel(mUserRepository)
+        this.mAlbumViewModel = AlbumViewModel(mUserRepository)
     }
 
-    /** Test Class for UserInfo */
+    /** Test Class for UserAlbum */
     @Test
-    fun test_UserInfoApiHasValue() {
+    fun test_UserAlbumApiHasValue() {
 
         //Given
-        val viewmodel = UserViewModel(mUserRepository)
+        val viewmodel = AlbumViewModel(mUserRepository)
         // WHEN
-        val result = viewmodel.getUserInfoData()
+        val result = viewmodel.getUserAlbumData()
         // Then
         assertNotNull(result)
     }
 
-    /** Test Class for UserInfo Success Scenario */
+    /** Test Class for UserAlbum Success Scenario */
     @Test
-    fun test_getUserInfoAPISuccess() {
+    fun test_getUserAlbumAPISuccess() {
 
-        `when`(this.mUserApi.getUserInfo()).thenAnswer {
+        `when`(this.mUserApi.getUserAlbum()).thenAnswer {
             return@thenAnswer Maybe.just(ArgumentMatchers.any<UserRepository>())
         }
-        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
-        this.mUserRepository.liveUserInfoResponse.observeForever(observer)
-        this.mUserViewModel.getUserInfoData()
 
-        assertNotNull(this.mUserViewModel.getUserInfoData())
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
+        this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
+        this.mAlbumViewModel.getUserAlbumData()
+        assertNotNull(this.mAlbumViewModel.getUserAlbumData())
     }
 
-    /** Test Class for UserInfo Failure Scenario */
     @Test
-    fun test_getUserInfoError() {
+    fun test_getUserAlbumError() {
 
-        `when`(this.mUserApi.getUserInfo()).thenAnswer {
+        `when`(this.mUserApi.getUserAlbum()).thenAnswer {
             return@thenAnswer Maybe.error<SocketException>(SocketException("No network here"))
         }
 
-          val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
-          this.mUserRepository.liveUserInfoResponse.observeForever(observer)
-
-        this.mUserViewModel.getUserInfoData()
-
-        assertNotNull(this.mUserViewModel.getUserInfoData())
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
+        this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
+        this.mAlbumViewModel.getUserAlbumData()
+        assertNotNull(this.mAlbumViewModel.getUserAlbumData())
     }
-
 }
 

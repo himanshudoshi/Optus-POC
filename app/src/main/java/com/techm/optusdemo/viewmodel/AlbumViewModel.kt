@@ -7,13 +7,12 @@ import com.techm.optusdemo.model.useralbum.UserAlbum
 import com.techm.optusdemo.repository.UserRepository
 
 /**
- *  The ViewModel for fetching a list of User Info Details.
+ *  The ViewModel for fetching a list of User Album Details.
  */
-class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+class AlbumViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    // UserInfo
-    fun getUserInfoData(): MutableLiveData<List<UserInfo>>? {
-        return userRepository.loadUserInfoData()
+    // User Album
+    fun getUserAlbumData(): MutableLiveData<List<UserAlbum>>? {
+        return userRepository.loadUserAlbumData()
     }
-
 }

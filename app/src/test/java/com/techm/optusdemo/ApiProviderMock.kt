@@ -27,8 +27,8 @@ object UserInfoAPISearchMock {
             "      \"catchPhrase\": \"Multi-layered client-server neural-net\",\n" +
             "      \"bs\": \"harness real-time e-markets\"\n" +
             "    }\n" +
-            "  }".toString()
+            "  }"
 
-    val userInfoMock =  Gson().fromJson(UserInfoMockString, UserInfo::class.java)
+    val userInfoMock: UserInfo =  Gson().fromJson(UserInfoMockString, UserInfo::class.java)
 
 }

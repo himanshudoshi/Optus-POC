@@ -24,9 +24,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Activity class displays all User Details in Recyclerview in the screen
  */
 class UserInfoActivity : AppCompatActivity() {
+
     private lateinit var userRepository: UserRepository
     private lateinit var userApi: UserApi
-
     private lateinit var factory: UserViewModelFactory
     private var mBindings: ActivityMainBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -36,7 +36,7 @@ class UserInfoActivity : AppCompatActivity() {
         //data binding
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_main)
         linearLayoutManager = LinearLayoutManager(this)
-        mBindings!!.recyclerView.layoutManager = linearLayoutManager
+        mBindings!!.userInfoRecyclerView.layoutManager = linearLayoutManager
         if (Utils.hasNetwork(this) == true) {
             getUserInfoData()
         } else makeText(
@@ -56,7 +56,7 @@ class UserInfoActivity : AppCompatActivity() {
             ViewModelProviders.of(this@UserInfoActivity, factory).get(UserViewModel::class.java)
 
         mUserViewModel.getUserInfoData()?.observe(this, Observer { userList ->
-            recyclerView.adapter =
+            userInfo_recyclerView.adapter =
                 UserInfoAdapter(this@UserInfoActivity, userList as ArrayList<UserInfo>, object :
                     ItemClickListener {
                     override fun onItemClick(pos: Int, name: String) {

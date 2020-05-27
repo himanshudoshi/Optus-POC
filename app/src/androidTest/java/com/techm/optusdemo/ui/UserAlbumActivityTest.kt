@@ -9,7 +9,6 @@ import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
@@ -37,16 +36,15 @@ class UserAlbumActivityTest {
     /** Define ActivityTestRule */
     @get:Rule
     var userAlbumActivityTest: ActivityTestRule<UserAlbumActivity> =
-        object : ActivityTestRule<UserAlbumActivity>(UserAlbumActivity::class.java)
-        {
+        object : ActivityTestRule<UserAlbumActivity>(UserAlbumActivity::class.java) {
             override fun getActivityIntent(): Intent {
                 val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
                 return Intent(targetContext, UserAlbumActivity::class.java).apply {
-                    putExtra("ID","id")
-                                  }
+                    putExtra("ID", "id")
+                }
             }
         }
-    var mActivity: UserAlbumActivity? = null
+    private var mActivity: UserAlbumActivity? = null
 
     /** Define IntentTestRule */
     @get:Rule
@@ -56,35 +54,35 @@ class UserAlbumActivityTest {
     @Test
     fun appLaunchSuccessfully() {
         Thread.sleep(5000)
-       ActivityScenario.launch(UserInfoActivity::class.java)
+        ActivityScenario.launch(UserInfoActivity::class.java)
         intended(hasComponent(UserAlbumActivity::class.java.name))
-
     }
 
     /** Function to test Back Press button*/
     @Test
     fun click_backPress() {
-        Espresso.onView(ViewMatchers.isRoot()).perform(ViewActions.pressBackUnconditionally());
+        Espresso.onView(ViewMatchers.isRoot()).perform(ViewActions.pressBackUnconditionally())
     }
+
     /** Function to test ProgressBar Displaying or not */
     @Test
     fun onLaunchCheckProgressBarIsDisplayed() {
         IdlingResource.ResourceCallback {
             Espresso.onView(withId(R.id.progressBar))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .check(ViewAssertions.matches(isDisplayed()))
         }
     }
 
     /** Function to test RecyclerView SwipeUp */
     @Test
     fun testSwipeUp_swipeUpRecyclerView() {
-        Espresso.onView(withId(image_recyclerView)).perform(ViewActions.swipeUp())
+        onView(withId(image_recyclerView)).perform(ViewActions.swipeUp())
     }
 
     /** Function to test RecyclerView SwipeUp */
     @Test
     fun testSwipeDown_swipeDownRecyclerView() {
-        Espresso.onView(withId(image_recyclerView)).perform(ViewActions.swipeDown())
+        onView(withId(image_recyclerView)).perform(ViewActions.swipeDown())
     }
 
     /** Function to test RecyclerView Scrolling Position */
@@ -92,46 +90,53 @@ class UserAlbumActivityTest {
     fun testScrolling_scrollToPositionWithThumbNailUrl() {
         Thread.sleep(3000)
         onView(withId(R.id.image_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.user_image))
-            )  }
+            .perform(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    1,
+                    clickItemWithId(R.id.user_image)
+                )
+            )
+    }
 
     /** Function to test RecyclerView Scrolling Position */
     @Test
     fun testIntent_toUserImageActivity() {
         Thread.sleep(3000)
         onView(withId(R.id.image_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.name))
+            .perform(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.name))
             )
         intended(hasComponent(UserImageActivity::class.java.name))
-
     }
+
     /** Function to test RecyclerView Scrolling Position */
     @Test
     fun testScroll_scrollToPositionWithImageText() {
         Thread.sleep(3000)
         onView(withId(R.id.image_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.user_image_text))
-            )  }
-
+            .perform(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    1,
+                    clickItemWithId(R.id.user_image_text)
+                )
+            )
+    }
 
     /** Function to test Album Details Displaying in RecyclerView or not */
     @Test
     fun testAlbumItemsList_AlbumItemsListIsDisplayed() {
         Thread.sleep(3000)
-        Espresso.onView(withId(image_recyclerView))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(image_recyclerView))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 
     /** Function to test RecyclerView Item Click Functionality */
     @Test
     fun testRecyclerview_item_click() {
         Thread.sleep(3000)
-
-        Espresso.onView(withId(image_recyclerView)).perform(
-            actionOnItemAtPosition<RecyclerView.ViewHolder>(2,
+        onView(withId(image_recyclerView)).perform(
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                2,
                 click()
             )
         )
@@ -141,7 +146,7 @@ class UserAlbumActivityTest {
     @Test
     fun testRecyclerview_ImageText_hasNoText() {
         Thread.sleep(3000)
-        Espresso.onView(withId(image_recyclerView))
+        onView(withId(image_recyclerView))
             .check(
                 ViewAssertions.matches(
                     CoreMatchers.not(
@@ -152,19 +157,18 @@ class UserAlbumActivityTest {
                         )
                     )
                 )
-            );
+            )
     }
 
     /** Function to test RecyclerView Displayed or not */
-
     @Test
     fun onLaunchCheckRecyclerViewIsDisplayed() {
         Thread.sleep(3000)
         val recyclerView: RecyclerView =
             userAlbumActivityTest.activity.findViewById(image_recyclerView)
-        Espresso.onView(withId(R.id.image_recyclerView)).check(
+        onView(withId(image_recyclerView)).check(
             ViewAssertions.matches(
-                ViewMatchers.isDisplayed()
+                isDisplayed()
             )
         )
         Assert.assertNotSame(0, recyclerView.adapter?.itemCount)
@@ -174,11 +178,14 @@ class UserAlbumActivityTest {
     @Test
     fun testRecyclerview_ImageText_hasText() {
         Thread.sleep(3000)
-        Espresso.onView(withId(image_recyclerView))
-            .check(ViewAssertions.matches(
-                CoreMatchers.allOf(withText("officia porro iure quia iusto qui ipsa ut modi"))
-            ));
+        onView(withId(image_recyclerView))
+            .check(
+                ViewAssertions.matches(
+                    CoreMatchers.allOf(withText("officia porro iure quia iusto qui ipsa ut modi"))
+                )
+            )
     }
+
     @After
     fun testDone() {
         mActivity = null

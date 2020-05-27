@@ -16,7 +16,7 @@ fun clickItemWithId(id: Int): ViewAction {
         }
 
         override fun perform(uiController: UiController, view: View) {
-            val v = view.findViewById<View>(id) as View
+            val v = view.findViewById(id) as View
             v.performClick()
         }
     }

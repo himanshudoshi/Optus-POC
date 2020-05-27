@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">OptusDemo</string>
 
-    <string name="id">ID:\u0020</string>
-    <string name="name">Name:\u0020</string>
-    <string name="email">Email:\u0020</string>
-    <string name="phone">Phone:\u0020</string>
     <string name="album_id">Album ID:\u0020</string>
     <string name="photo_id">Photo ID:\u0020</string>
     <string name="user_info">User Info</string>

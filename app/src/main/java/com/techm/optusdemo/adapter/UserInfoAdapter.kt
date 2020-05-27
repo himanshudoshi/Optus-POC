@@ -13,7 +13,7 @@ import com.techm.optusdemo.network.ItemClickListener
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.ui.UserInfoActivity
 
-/** Class UserInfoAdapter to populate items */
+/** Class UserInfo Adapter to populate items */
 class UserInfoAdapter(
     private var context: UserInfoActivity,
     private var mUserInfoList: ArrayList<UserInfo>,
@@ -51,14 +51,14 @@ class UserInfoAdapter(
         return mUserInfoList.size
     }
 
-    /** This Class displays UserDetails in RecyclerView */
+    /** This Class displays UserInfo Details in RecyclerView */
     class UserViewHolder(val binding: RowUserInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: UserInfo) {
             binding.setVariable(
                 BR.data,
                 data
-            ) //BR - generated class; BR.user -- 'user' is variable name declared in layout
+            )
             binding.data = data
             binding.executePendingBindings()
         }

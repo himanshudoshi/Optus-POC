@@ -10,15 +10,13 @@ import retrofit2.Call
 import retrofit2.Callback
 
 /**
- * Retrofit Service for Network Operations
+ * Repository class for Network Operations
  */
-class UserRepository() {
+class UserRepository {
 
     val liveUserInfoResponse: MutableLiveData<List<UserInfo>> = MutableLiveData()
     val liveUserAlbumResponse: MutableLiveData<List<UserAlbum>> = MutableLiveData()
     private val statusMessage = MutableLiveData<Event<String>>()
-    val message: LiveData<Event<String>>
-        get() = statusMessage
 
     /** Fetch User Info Data from Network */
     fun loadUserInfoData(): MutableLiveData<List<UserInfo>>? {

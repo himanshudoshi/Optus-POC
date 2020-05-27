@@ -15,27 +15,27 @@ import com.techm.optusdemo.network.ItemImageClickListener
 import com.techm.optusdemo.ui.UserAlbumActivity
 import kotlinx.android.synthetic.main.row_user_album.view.*
 
-
-/** Class UserAlbum Adapter to populate items */
+/** Class UserAlbum Adapter to populate Album items */
 class UserAlbumAdapter(
     private var context: UserAlbumActivity,
     private var mUserList: ArrayList<UserAlbum>,
     private val itemClick: ItemImageClickListener
 ) : RecyclerView.Adapter<UserAlbumAdapter.ImageViewHolder>() {
 
-    /** Return item counts. */
-    override fun getItemCount(): Int {
-        return mUserList.size
-    }
-
     companion object {
         var mItemClickListener: ItemImageClickListener? = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+
         val view = LayoutInflater.from(context).inflate(R.layout.row_user_album, parent, false)
         // var image = findViewById(R.id.image) as ImageView
         return ImageViewHolder(view)
+    }
+
+    /** Return item counts. */
+    override fun getItemCount(): Int {
+        return mUserList.size
     }
 
     /** Bind Data to ViewHolder */
@@ -60,7 +60,7 @@ class UserAlbumAdapter(
         }
     }
 
-    /** This Class displays Images in RecyclerView */
+    /** This Class displays Album Images in RecyclerView */
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val userImageText = view.user_image_text!!
         val userImage: ImageView = view.user_image

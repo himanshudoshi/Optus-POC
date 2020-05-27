@@ -1,14 +1,12 @@
 package com.techm.optusdemo.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.techm.optusdemo.R
 import com.techm.optusdemo.databinding.ActivityDetailsBinding
-import kotlinx.android.synthetic.main.activity_details.*
 
 /**
  * Activity class displays User Detail ,url Image in Recyclerview in the screen
@@ -28,6 +26,7 @@ class UserImageActivity : AppCompatActivity() {
      * SetUp View
      */
     private fun setUpView() {
+
         linearLayoutManager = LinearLayoutManager(this)
         val bundle = intent
         val albumId: String? = bundle.getStringExtra("albumId")

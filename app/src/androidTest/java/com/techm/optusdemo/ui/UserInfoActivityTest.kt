@@ -90,21 +90,6 @@ class UserInfoActivityTest {
             )
     }
 
-    /** Function to test Pass Intent to open another Activity */
-    @Test
-    fun testIntent_toAnotherActivity() {
-        Thread.sleep(3000)
-        onView(withId(R.id.userInfo_recyclerView))
-            .perform(
-                RecyclerViewActions
-                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                        listItemPosition,
-                        ItemWithIdClickTest(R.id.name)
-                    )
-            )
-         intended(hasComponent(UserAlbumActivity::class.java.name))
-    }
-
     /** Function to test RecyclerView Scrolling Position to specific Email */
     @Test
     fun testScroll_scrollToPositionWithEmail() {

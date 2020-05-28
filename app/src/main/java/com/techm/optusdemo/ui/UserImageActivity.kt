@@ -1,12 +1,14 @@
 package com.techm.optusdemo.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.techm.optusdemo.R
 import com.techm.optusdemo.databinding.ActivityDetailsBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Activity class displays User Detail ,url Image in Recyclerview in the screen
@@ -33,6 +35,7 @@ class UserImageActivity : AppCompatActivity() {
         val photoId: String? = bundle.getStringExtra("photoId")
         val title: String? = bundle.getStringExtra("title")
         val url: String? = bundle.getStringExtra("url")
+        progressBar?.visibility = View.VISIBLE
 
         mBindings.albumId.text = getString(R.string.album_id) + albumId
         mBindings.photoId.text = getString(R.string.photo_id) + photoId
@@ -42,5 +45,7 @@ class UserImageActivity : AppCompatActivity() {
             placeholder(R.drawable.image_not_available)
             error(R.drawable.ic_broken_image)
         }
+        progressBar?.visibility = View.INVISIBLE
+
     }
 }

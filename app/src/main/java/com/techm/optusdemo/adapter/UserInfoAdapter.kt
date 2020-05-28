@@ -51,7 +51,7 @@ class UserInfoAdapter(
         return mUserInfoList.size
     }
 
-    /** This Class displays UserInfo Details in RecyclerView */
+    /** This Class used to describe an item view & metadata about its place within the recyclerview */
     class UserViewHolder(val binding: RowUserInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: UserInfo) {

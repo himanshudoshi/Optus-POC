@@ -63,6 +63,7 @@ class AlbumViewModelTest {
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
         this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
         this.mAlbumViewModel.getUserAlbumData()
+        Thread.sleep(7000)
         assertNotNull(this.mAlbumViewModel.getUserAlbumData())
     }
 
@@ -72,10 +73,10 @@ class AlbumViewModelTest {
         `when`(this.mUserApi.getUserAlbum()).thenAnswer {
             return@thenAnswer Maybe.error<SocketException>(SocketException("No network here"))
         }
-
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
         this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
         this.mAlbumViewModel.getUserAlbumData()
+        Thread.sleep(7000)
         assertNotNull(this.mAlbumViewModel.getUserAlbumData())
     }
 }

@@ -2,6 +2,7 @@ package com.techm.optusdemo.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,7 +28,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private lateinit var userRepository: UserRepository
     private lateinit var userApi: UserApi
-    private lateinit var factory: UserViewModelFactory
+    private lateinit var userFactory: UserViewModelFactory
     private var mBindings: ActivityMainBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -38,7 +39,9 @@ class UserInfoActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         mBindings!!.userInfoRecyclerView.layoutManager = linearLayoutManager
         if (Utils.hasNetwork(this) == true) {
+            progressBar.visibility= View.VISIBLE
             getUserInfoData()
+            progressBar.visibility=View.INVISIBLE
         } else makeText(
             this,
             getString(R.string.internet_connection_not_available),
@@ -51,9 +54,9 @@ class UserInfoActivity : AppCompatActivity() {
 
         //live data
         userRepository = UserRepository()
-        factory = UserViewModelFactory(userRepository)
+        userFactory = UserViewModelFactory(userRepository)
         val mUserViewModel =
-            ViewModelProviders.of(this@UserInfoActivity, factory).get(UserViewModel::class.java)
+            ViewModelProviders.of(this@UserInfoActivity, userFactory).get(UserViewModel::class.java)
 
         mUserViewModel.getUserInfoData()?.observe(this, Observer { userList ->
             userInfo_recyclerView.adapter =

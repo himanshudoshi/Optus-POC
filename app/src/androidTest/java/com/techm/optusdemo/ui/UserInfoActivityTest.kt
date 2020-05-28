@@ -6,13 +6,12 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,15 +36,18 @@ class UserInfoActivityTest {
         ActivityTestRule(UserInfoActivity::class.java)
     private var mActivity: UserInfoActivity? = null
 
-    /** Define IntentTestRule */
-    @get:Rule
-    val intentsTestRule = IntentsTestRule(UserInfoActivity::class.java)
+    private val listItemPosition = 7
+    private val id = "ID : 7"
+    private val testname = "Name : Kurtis Weissnat"
+    private val notname = "Name : Optus"
+    private val testemail = "Email : Telly.Hoeger@billy.biz"
+    private val testphone = "Phone : 210.067.6132"
 
     /** Function to test App successfully launch */
     @Test
     fun appLaunchSuccessfully() {
         Thread.sleep(5000)
-       ActivityScenario.launch(UserInfoActivity::class.java)
+        ActivityScenario.launch(UserInfoActivity::class.java)
     }
 
     /** Function to test Back Press button*/
@@ -66,58 +68,76 @@ class UserInfoActivityTest {
     /** Function to test RecyclerView SwipeUp */
     @Test
     fun testSwipeUp_swipeUpRecyclerView() {
-        onView(withId(R.id.userInfo_recyclerView)).perform(ViewActions.swipeUp())
+        onView(withId(R.id.userInfo_recyclerView)).perform(
+            withCustomConstraints(
+                swipeUp(),
+                isDisplayingAtLeast(listItemPosition)
+            )
+        )
     }
 
-    /** Function to test RecyclerView SwipeUp */
-    @Test
-    fun testSwipeDown_swipeDownRecyclerView() {
-        onView(withId(R.id.userInfo_recyclerView)).perform(ViewActions.swipeDown())
-    }
-
-    /** Function to test RecyclerView Scrolling Position */
+    /** Function to test RecyclerView Scrolling Position to specific Name */
     @Test
     fun testScrolling_scrollToPositionWithName() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.name))
-            )  }
+            .perform(
+                RecyclerViewActions
+                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                        listItemPosition,
+                        ItemWithIdClickTest(R.id.name)
+                    )
+            )
+    }
 
-    /** Function to test RecyclerView Scrolling Position */
+    /** Function to test Pass Intent to open another Activity */
     @Test
     fun testIntent_toAnotherActivity() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.name))
+            .perform(
+                RecyclerViewActions
+                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                        listItemPosition,
+                        ItemWithIdClickTest(R.id.name)
+                    )
             )
-        intended(hasComponent(UserAlbumActivity::class.java.name))
+         intended(hasComponent(UserAlbumActivity::class.java.name))
     }
 
-    /** Function to test RecyclerView Scrolling Position */
+    /** Function to test RecyclerView Scrolling Position to specific Email */
     @Test
     fun testScroll_scrollToPositionWithEmail() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.email))
-            )  }
+            .perform(
+                RecyclerViewActions
+                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                        listItemPosition,
+                        ItemWithIdClickTest(R.id.email)
+                    )
+            )
+    }
 
-    /** Function to test RecyclerView Scrolling Position */
+    /** Function to test RecyclerView Scrolling Position to specific Phone Number */
     @Test
     fun testScroll_scrollToPositionWithphone() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
-            .perform(RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.phone))
-            )  }
+            .perform(
+                RecyclerViewActions
+                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                        listItemPosition,
+                        ItemWithIdClickTest(R.id.phone)
+                    )
+            )
+    }
 
-    /** Function to test EmployeeDetails Displaying in RecyclerView or not */
+    /** Function to test UserInfo Displaying in RecyclerView or not */
     @Test
     fun testUserItemsList_UsersItemsListIsDisplayed() {
-        Thread.sleep(3000)
 
+        Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
@@ -127,30 +147,26 @@ class UserInfoActivityTest {
     fun testRecyclerview_item_click() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView)).perform(
-            actionOnItemAtPosition<RecyclerView.ViewHolder>(2,
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                listItemPosition,
                 click()
             )
         )
     }
 
-    /** Function to test RecyclerView Title Negative Scenario*/
+    /** Function to test RecyclerView Name Item Negative Scenario*/
     @Test
     fun testRecyclerview_UserName_hasNoText() {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
             .check(
                 ViewAssertions.matches(
-                    CoreMatchers.not(
-                        hasDescendant(
-                            withText(
-                                "Himanshu"
-                            )
-                        )
-                    )
+                    CoreMatchers.not(hasDescendant(withText(notname)))
                 )
             )
     }
 
+    /** Function to test RecyclerView is Displayed */
     @Test
     fun onLaunchCheckRecyclerViewIsDisplayed() {
         Thread.sleep(3000)
@@ -164,15 +180,36 @@ class UserInfoActivityTest {
         Assert.assertNotSame(0, recyclerView.adapter?.itemCount)
     }
 
-    /** Function to test RecyclerView Title */
+    /** Function to test RecyclerView Name TextView has User Name */
     @Test
-    fun testRecyclerview_UserName_hasText() {
-        Thread.sleep(3000)
-        onView(withId(R.id.userInfo_recyclerView))
-            .check(ViewAssertions.matches(
-                CoreMatchers.allOf(withText("Tiger Nixon"))
-            ))
+    fun testRecyclerViewUserHasTextViewUserName() {
+        IdlingResource.ResourceCallback {
+            onView(withId(R.id.userInfo_recyclerView))
+                .check(ViewAssertions.matches(hasDescendant(withId(R.id.name))))
+                .check(ViewAssertions.matches(withText(testname)))
+        }
     }
+
+    /** Function to test RecyclerView Email TextView has User Email */
+    @Test
+    fun testRecyclerViewUserHasTextViewUserEmail() {
+        IdlingResource.ResourceCallback {
+            onView(withId(R.id.userInfo_recyclerView))
+                .check(ViewAssertions.matches(hasDescendant(withId(R.id.email))))
+                .check(ViewAssertions.matches(withText(testemail)))
+        }
+    }
+
+    /** Function to test RecyclerView Phone TextView has User Phone */
+    @Test
+    fun testRecyclerViewHasTextViewUserPhone() {
+        IdlingResource.ResourceCallback {
+            onView(withId(R.id.userInfo_recyclerView))
+                .check(ViewAssertions.matches(hasDescendant(withId(R.id.phone))))
+                .check(ViewAssertions.matches(withText(testphone)))
+        }
+    }
+
     @After
     fun testDone() {
         mActivity = null

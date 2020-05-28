@@ -62,7 +62,7 @@ class UserViewModelTest {
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
         this.mUserRepository.liveUserInfoResponse.observeForever(observer)
         this.mUserViewModel.getUserInfoData()
-
+        Thread.sleep(7000)
         assertNotNull(this.mUserViewModel.getUserInfoData())
     }
 
@@ -74,11 +74,10 @@ class UserViewModelTest {
             return@thenAnswer Maybe.error<SocketException>(SocketException("No network here"))
         }
 
-          val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
-          this.mUserRepository.liveUserInfoResponse.observeForever(observer)
-
+        val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
+        this.mUserRepository.liveUserInfoResponse.observeForever(observer)
         this.mUserViewModel.getUserInfoData()
-
+        Thread.sleep(7000)
         assertNotNull(this.mUserViewModel.getUserInfoData())
     }
 

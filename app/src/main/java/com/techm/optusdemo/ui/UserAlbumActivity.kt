@@ -3,6 +3,7 @@ package com.techm.optusdemo.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +19,13 @@ import com.techm.optusdemo.model.useralbum.UserAlbum
 import com.techm.optusdemo.utils.Utils
 import com.techm.optusdemo.network.ItemImageClickListener
 import com.techm.optusdemo.repository.UserRepository
+import com.techm.optusdemo.viewmodel.AlbumViewModel
+import com.techm.optusdemo.viewmodel.AlbumViewModelFactory
 import com.techm.optusdemo.viewmodel.UserViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_user_image.*
 import kotlinx.android.synthetic.main.activity_user_image.album_id
+import kotlinx.android.synthetic.main.activity_user_image.progressBar
 
 /**
  * Activity class displays User ID , Album ID and Image in Recyclerview in the screen
@@ -32,14 +37,16 @@ class UserAlbumActivity : AppCompatActivity() {
     private lateinit var mBindings: ActivityUserImageBinding //it generates based on xml
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var userRepository: UserRepository
-    private lateinit var factory: UserViewModelFactory
+    private lateinit var albumFactory: AlbumViewModelFactory
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //data binding
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_user_image)
         setUpView()
+
     }
 
     /**
@@ -47,6 +54,7 @@ class UserAlbumActivity : AppCompatActivity() {
      */
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setUpView() {
+        progressBar.visibility= View.VISIBLE
         linearLayoutManager = LinearLayoutManager(this)
         mBindings.imageRecyclerView.layoutManager = linearLayoutManager
         val bundle = intent
@@ -63,6 +71,7 @@ class UserAlbumActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+       progressBar.visibility= View.INVISIBLE
     }
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */
@@ -70,9 +79,9 @@ class UserAlbumActivity : AppCompatActivity() {
     private fun getUserProfileImages() {
 
         userRepository = UserRepository()
-        factory = UserViewModelFactory(userRepository)
+        albumFactory = AlbumViewModelFactory(userRepository)
         val mUserAlbumViewModel =
-            ViewModelProviders.of(this, factory).get(UserViewModel::class.java)
+            ViewModelProviders.of(this, albumFactory).get(AlbumViewModel::class.java)
 
         mUserAlbumViewModel.getUserAlbumData()?.observe(this@UserAlbumActivity, Observer { it ->
             val filteredAlbumList = it.filter { it.albumId.toString() == id }

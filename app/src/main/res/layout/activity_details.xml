@@ -1,77 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.UserImageActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.techm.optusdemo.ui.UserImageActivity">
+
+       <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_20">
+
+            <TextView
+                android:id="@+id/album_id"
+                android:layout_width="@dimen/margin_0"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:text="@string/album_id"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_24"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/photo_id"
+                android:layout_width="@dimen/margin_0"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/photo_id"
+                android:textSize="@dimen/size_24"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/album_id" />
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_450"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="@dimen/margin_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/photo_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photo_id"
+                app:srcCompat="@drawable/image_not_available" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_100"
+                android:layout_marginTop="@dimen/margin_5"
+                app:cardBackgroundColor="@color/blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_image"
+                app:layout_constraintVertical_bias="0.238">
 
                 <TextView
-                    android:id="@+id/album_id"
+                    android:id="@+id/user_image_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/album_id"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/size_24"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/photo_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/photo_id"
-                    android:textSize="@dimen/size_24"
-                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:id="@+id/user_image"
-                    android:layout_width="@dimen/margin_350"
-                    android:layout_height="@dimen/margin_450"
-                    android:layout_margin="5dp"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/image_not_available" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@android:color/holo_blue_dark"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+    </ScrollView>
 
-                    <TextView
-                        android:id="@+id/user_image_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_5"
-                        android:gravity="center|center_vertical"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/size_20"
-                        android:textStyle="bold"
-                        android:textIsSelectable="true" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

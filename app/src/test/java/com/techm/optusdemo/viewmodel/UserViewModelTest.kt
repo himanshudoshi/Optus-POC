@@ -1,13 +1,14 @@
 package com.techm.optusdemo.viewmodel
 
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.network.UserApi
 import com.techm.optusdemo.repository.UserRepository
 import io.reactivex.Maybe
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,12 +32,15 @@ class UserViewModelTest {
     lateinit var mUserApi: UserApi
     private lateinit var mUserViewModel: UserViewModel
     private lateinit var mUserRepository: UserRepository
+    val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         this.mUserRepository = UserRepository()
         this.mUserViewModel = UserViewModel(mUserRepository)
+        mUserViewModel.getUserInfoData()?.observeForever(observer)
+
     }
 
     /** Test Class for UserInfo */
@@ -60,9 +64,8 @@ class UserViewModelTest {
         }
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
         this.mUserRepository.liveUserInfoResponse.observeForever(observer)
-        this.mUserViewModel.getUserInfoData()
         Thread.sleep(7000)
-        assertNotNull(this.mUserViewModel.getUserInfoData())
+        assertNotNull(this.mUserRepository.liveUserInfoResponse.value)
     }
 
     /** Test Class for UserInfo Failure Scenario */
@@ -75,9 +78,8 @@ class UserViewModelTest {
 
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
         this.mUserRepository.liveUserInfoResponse.observeForever(observer)
-        this.mUserViewModel.getUserInfoData()
         Thread.sleep(7000)
-        assertNotNull(this.mUserViewModel.getUserInfoData())
+        assertNull(this.mUserRepository.statusMessage.value)
     }
 
 }

@@ -8,6 +8,7 @@ import com.techm.optusdemo.network.UserApi
 import com.techm.optusdemo.repository.UserRepository
 import io.reactivex.Maybe
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -60,10 +61,11 @@ class AlbumViewModelTest {
         }
 
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
-        this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
+        val result = this.mUserRepository.liveUserAlbumResponse
+        result.observeForever(observer)
         this.mAlbumViewModel.getUserAlbumData()
         Thread.sleep(7000)
-        assertNotNull(this.mAlbumViewModel.getUserAlbumData())
+        assertNotNull(result.value)
     }
 
     @Test
@@ -74,9 +76,8 @@ class AlbumViewModelTest {
         }
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserAlbum>>
         this.mUserRepository.liveUserAlbumResponse.observeForever(observer)
-        this.mAlbumViewModel.getUserAlbumData()
         Thread.sleep(7000)
-        assertNotNull(this.mAlbumViewModel.getUserAlbumData())
+        assertNull(this.mUserRepository.statusMessage.value)
     }
 }
 

@@ -64,7 +64,7 @@ class UserInfoActivityTest {
     fun testSwipeUp_swipeUpRecyclerView() {
         Thread.sleep(5000)
         onView(withId(R.id.userInfo_recyclerView)).perform(
-            withCustomConstraints(
+            CustomTestConstraints(
                 swipeUp(),
                 isDisplayingAtLeast(listItemPosition)
             )

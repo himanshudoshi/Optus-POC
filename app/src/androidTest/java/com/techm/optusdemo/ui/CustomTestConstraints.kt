@@ -5,7 +5,7 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import org.hamcrest.Matcher
 
-fun withCustomConstraints(
+fun CustomTestConstraints(
     action: ViewAction,
     constraints: Matcher<View>
 ): ViewAction? {

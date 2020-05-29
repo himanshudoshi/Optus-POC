@@ -5,7 +5,7 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import org.hamcrest.Matcher
 
-fun itemWithIdClickTest(id: Int): ViewAction {
+fun ItemWithIdClickTest(id: Int): ViewAction {
     return object : ViewAction {
         override fun getConstraints(): Matcher<View>? {
             return null

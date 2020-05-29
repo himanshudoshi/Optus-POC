@@ -28,6 +28,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class UserAlbumActivityTest {
 
+    private val id = "ID : 7"
+
     /** Define ActivityTestRule */
     @get:Rule
     var userAlbumActivityTest: ActivityTestRule<UserAlbumActivity> =
@@ -77,7 +79,7 @@ class UserAlbumActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    itemWithIdClickTest(R.id.user_image)
+                    ItemWithIdClickTest(R.id.user_image)
                 )
             )
     }
@@ -88,7 +90,7 @@ class UserAlbumActivityTest {
         Thread.sleep(3000)
         onView(withId(R.id.image_recyclerView))
             .perform(
-                actionOnItemAtPosition<RecyclerView.ViewHolder>(1, itemWithIdClickTest(R.id.name))
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ItemWithIdClickTest(R.id.name))
             )
         intended(hasComponent(UserImageActivity::class.java.name))
     }
@@ -101,7 +103,7 @@ class UserAlbumActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    itemWithIdClickTest(R.id.user_image_text)
+                    ItemWithIdClickTest(R.id.user_image_text)
                 )
             )
     }
@@ -149,8 +151,8 @@ class UserAlbumActivityTest {
     fun onLaunchCheckRecyclerViewIsDisplayed() {
         Thread.sleep(3000)
         val recyclerView: RecyclerView =
-            userAlbumActivityTest.activity.findViewById(image_recyclerView)
-        onView(withId(image_recyclerView)).check(
+            userAlbumActivityTest.activity.findViewById(R.id.image_recyclerView)
+        onView(withId(R.id.image_recyclerView)).check(
             ViewAssertions.matches(
                 isDisplayed()
             )
@@ -162,7 +164,7 @@ class UserAlbumActivityTest {
     @Test
     fun testRecyclerview_ImageText_hasText() {
         Thread.sleep(3000)
-        onView(withId(image_recyclerView))
+        onView(withId(R.id.image_recyclerView))
             .check(
                 ViewAssertions.matches(
                     CoreMatchers.allOf(withText("officia porro iure quia iusto qui ipsa ut modi"))

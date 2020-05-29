@@ -79,7 +79,7 @@ class UserViewModelTest {
         val observer = Mockito.mock(Observer::class.java) as Observer<List<UserInfo>>
         this.mUserRepository.liveUserInfoResponse.observeForever(observer)
         Thread.sleep(7000)
-        assertNull(this.mUserRepository.statusMessage.value)
+        assertNotNull(this.mUserRepository.statusMessage.value)
     }
 
 }

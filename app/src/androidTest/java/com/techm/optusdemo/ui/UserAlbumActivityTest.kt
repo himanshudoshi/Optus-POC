@@ -1,9 +1,7 @@
 package com.techm.optusdemo.ui
 
-import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions
@@ -12,15 +10,11 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.techm.optusdemo.R
 import com.techm.optusdemo.R.id.image_recyclerView
-import com.techm.optusdemo.model.useralbum.UserAlbum
 import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Assert
@@ -51,14 +45,14 @@ class UserAlbumActivityTest {
     /** Function to test Back Press button*/
     @Test
     fun click_backPress() {
-        Espresso.onView(ViewMatchers.isRoot()).perform(ViewActions.pressBackUnconditionally())
+        onView(isRoot()).perform(ViewActions.pressBackUnconditionally())
     }
 
     /** Function to test ProgressBar Displaying or not */
     @Test
     fun onLaunchCheckProgressBarIsDisplayed() {
         IdlingResource.ResourceCallback {
-            Espresso.onView(withId(R.id.progressBar))
+            onView(withId(R.id.progressBar))
                 .check(ViewAssertions.matches(isDisplayed()))
         }
     }
@@ -83,7 +77,7 @@ class UserAlbumActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    clickItemWithId(R.id.user_image)
+                    itemWithIdClickTest(R.id.user_image)
                 )
             )
     }
@@ -94,7 +88,7 @@ class UserAlbumActivityTest {
         Thread.sleep(3000)
         onView(withId(R.id.image_recyclerView))
             .perform(
-                actionOnItemAtPosition<RecyclerView.ViewHolder>(1, clickItemWithId(R.id.name))
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(1, itemWithIdClickTest(R.id.name))
             )
         intended(hasComponent(UserImageActivity::class.java.name))
     }
@@ -107,7 +101,7 @@ class UserAlbumActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    clickItemWithId(R.id.user_image_text)
+                    itemWithIdClickTest(R.id.user_image_text)
                 )
             )
     }

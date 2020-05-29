@@ -3,7 +3,8 @@ package com.techm.optusdemo.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast.*
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,10 +15,9 @@ import com.techm.optusdemo.adapter.UserInfoAdapter
 import com.techm.optusdemo.databinding.ActivityMainBinding
 import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.network.ItemClickListener
-import com.techm.optusdemo.network.UserApi
 import com.techm.optusdemo.repository.UserRepository
-import com.techm.optusdemo.viewmodel.UserViewModel
 import com.techm.optusdemo.utils.Utils
+import com.techm.optusdemo.viewmodel.UserViewModel
 import com.techm.optusdemo.viewmodel.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class UserInfoActivity : AppCompatActivity() {
 
     private lateinit var userRepository: UserRepository
-    private lateinit var userApi: UserApi
     private lateinit var userFactory: UserViewModelFactory
     private var mBindings: ActivityMainBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -39,9 +38,9 @@ class UserInfoActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         mBindings!!.userInfoRecyclerView.layoutManager = linearLayoutManager
         if (Utils.hasNetwork(this) == true) {
-            progressBar.visibility= View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             getUserInfoData()
-            progressBar.visibility=View.INVISIBLE
+            progressBar.visibility = View.INVISIBLE
         } else makeText(
             this,
             getString(R.string.internet_connection_not_available),

@@ -4,14 +4,13 @@ package com.techm.optusdemo.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.techm.optusdemo.model.useralbum.UserAlbum
-import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.network.UserApi
 import com.techm.optusdemo.repository.UserRepository
-import org.junit.Before
-import org.junit.Test
 import io.reactivex.Maybe
-import org.junit.Assert.*
+import org.junit.Assert.assertNotNull
+import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.ArgumentMatchers
@@ -45,9 +44,9 @@ class AlbumViewModelTest {
     fun test_UserAlbumApiHasValue() {
 
         //Given
-        val viewmodel = AlbumViewModel(mUserRepository)
+        val viewModel = AlbumViewModel(mUserRepository)
         // WHEN
-        val result = viewmodel.getUserAlbumData()
+        val result = viewModel.getUserAlbumData()
         // Then
         assertNotNull(result)
     }

@@ -1,9 +1,8 @@
 package com.techm.optusdemo.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.model.useralbum.UserAlbum
+import com.techm.optusdemo.model.userinfo.UserInfo
 import com.techm.optusdemo.network.UserApi.Factory.create
 import com.techm.optusdemo.utils.Event
 import retrofit2.Call

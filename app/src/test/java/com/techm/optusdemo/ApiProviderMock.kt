@@ -5,7 +5,7 @@ import com.techm.optusdemo.model.userinfo.UserInfo
 
 object UserInfoAPISearchMock {
 
-    private  val UserInfoMockString: String ="{\n" +
+    private val UserInfoMockString: String = "{\n" +
             "    \"id\": 1,\n" +
             "    \"name\": \"Leanne Graham\",\n" +
             "    \"username\": \"Bret\",\n" +
@@ -29,6 +29,6 @@ object UserInfoAPISearchMock {
             "    }\n" +
             "  }"
 
-    val userInfoMock: UserInfo =  Gson().fromJson(UserInfoMockString, UserInfo::class.java)
+    val userInfoMock: UserInfo = Gson().fromJson(UserInfoMockString, UserInfo::class.java)
 
 }

@@ -12,20 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.techm.optusdemo.R
-import com.techm.optusdemo.viewmodel.UserViewModel
 import com.techm.optusdemo.adapter.UserAlbumAdapter
 import com.techm.optusdemo.databinding.ActivityUserImageBinding
 import com.techm.optusdemo.model.useralbum.UserAlbum
-import com.techm.optusdemo.utils.Utils
 import com.techm.optusdemo.network.ItemImageClickListener
 import com.techm.optusdemo.repository.UserRepository
+import com.techm.optusdemo.utils.Utils
 import com.techm.optusdemo.viewmodel.AlbumViewModel
 import com.techm.optusdemo.viewmodel.AlbumViewModelFactory
-import com.techm.optusdemo.viewmodel.UserViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_user_image.*
-import kotlinx.android.synthetic.main.activity_user_image.album_id
-import kotlinx.android.synthetic.main.activity_user_image.progressBar
 
 /**
  * Activity class displays User ID , Album ID and Image in Recyclerview in the screen
@@ -42,11 +37,9 @@ class UserAlbumActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //data binding
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_user_image)
         setUpView()
-
     }
 
     /**
@@ -54,14 +47,14 @@ class UserAlbumActivity : AppCompatActivity() {
      */
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setUpView() {
-        progressBar.visibility= View.VISIBLE
+        progressBar.visibility = View.VISIBLE
         linearLayoutManager = LinearLayoutManager(this)
         mBindings.imageRecyclerView.layoutManager = linearLayoutManager
         val bundle = intent
         id = bundle.getStringExtra("id")
 
         image_recyclerView.layoutManager = LinearLayoutManager(this)
-        album_id.text = getString(R.string.album_id) + id
+        album_id.text = (getString(R.string.album_id) + id)
         if (Utils.hasNetwork(this) == true) {
             getUserProfileImages()
         } else {
@@ -71,7 +64,7 @@ class UserAlbumActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-       progressBar.visibility= View.INVISIBLE
+        progressBar.visibility = View.INVISIBLE
     }
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */

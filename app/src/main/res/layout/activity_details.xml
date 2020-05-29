@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/size_20">
+            android:padding="@dimen/margin_10">
 
             <TextView
                 android:id="@+id/album_id"
@@ -46,17 +46,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_450"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="@dimen/margin_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/photo_id"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photo_id"
-                app:srcCompat="@drawable/image_not_available" />
+                app:srcCompat="@drawable/image_not_available"
+                 />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_100"
-                android:layout_marginTop="@dimen/margin_5"
+                android:layout_height="@dimen/margin_150"
                 app:cardBackgroundColor="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +72,8 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_24"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textIsSelectable="true" />
 
             </androidx.cardview.widget.CardView>
 

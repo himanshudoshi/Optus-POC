@@ -2,17 +2,11 @@ package com.techm.optusdemo.ui
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingResource
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
@@ -53,7 +47,7 @@ class UserInfoActivityTest {
     /** Function to test Back Press button*/
     @Test
     fun click_backPress() {
-        onView(isRoot()).perform(ViewActions.pressBackUnconditionally())
+        onView(isRoot()).perform(pressBackUnconditionally())
     }
 
     /** Function to test ProgressBar Displaying or not */
@@ -61,13 +55,14 @@ class UserInfoActivityTest {
     fun onLaunchCheckProgressBarIsDisplayed() {
         IdlingResource.ResourceCallback {
             onView(withId(R.id.progressBar))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .check(ViewAssertions.matches(isDisplayed()))
         }
     }
 
     /** Function to test RecyclerView SwipeUp */
     @Test
     fun testSwipeUp_swipeUpRecyclerView() {
+        Thread.sleep(5000)
         onView(withId(R.id.userInfo_recyclerView)).perform(
             withCustomConstraints(
                 swipeUp(),
@@ -82,10 +77,9 @@ class UserInfoActivityTest {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
             .perform(
-                RecyclerViewActions
-                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         listItemPosition,
-                        ItemWithIdClickTest(R.id.name)
+                        itemWithIdClickTest(R.id.name)
                     )
             )
     }
@@ -96,10 +90,9 @@ class UserInfoActivityTest {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
             .perform(
-                RecyclerViewActions
-                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         listItemPosition,
-                        ItemWithIdClickTest(R.id.email)
+                        itemWithIdClickTest(R.id.email)
                     )
             )
     }
@@ -110,10 +103,9 @@ class UserInfoActivityTest {
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
             .perform(
-                RecyclerViewActions
-                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         listItemPosition,
-                        ItemWithIdClickTest(R.id.phone)
+                        itemWithIdClickTest(R.id.phone)
                     )
             )
     }
@@ -124,7 +116,7 @@ class UserInfoActivityTest {
 
         Thread.sleep(3000)
         onView(withId(R.id.userInfo_recyclerView))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 
     /** Function to test RecyclerView Item Click Functionality */
@@ -157,9 +149,9 @@ class UserInfoActivityTest {
         Thread.sleep(3000)
         val recyclerView: RecyclerView =
             userDetailActivityRule.activity.findViewById(R.id.userInfo_recyclerView)
-        Espresso.onView(withId(R.id.userInfo_recyclerView)).check(
+        onView(withId(R.id.userInfo_recyclerView)).check(
             ViewAssertions.matches(
-                ViewMatchers.isDisplayed()
+                isDisplayed()
             )
         )
         Assert.assertNotSame(0, recyclerView.adapter?.itemCount)

@@ -20,6 +20,7 @@ class UserImageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_details)
         setUpView()
     }
@@ -37,8 +38,8 @@ class UserImageActivity : AppCompatActivity() {
         val url: String? = bundle.getStringExtra("url")
         progressBar?.visibility = View.VISIBLE
 
-        mBindings.albumId.text = getString(R.string.album_id) + albumId
-        mBindings.photoId.text = getString(R.string.photo_id) + photoId
+        mBindings.albumId.text = (getString(R.string.album_id) + albumId)
+        mBindings.photoId.text = (getString(R.string.photo_id) + photoId)
         mBindings.userImageText.text = title
         mBindings.userImage.load(url) {
             crossfade(true)

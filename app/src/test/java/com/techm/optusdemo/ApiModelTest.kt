@@ -11,7 +11,7 @@ import org.junit.Before
  */
 class ApiModelTest {
 
-    lateinit var userInfoMock: UserInfo
+    private lateinit var userInfoMock: UserInfo
 
     @Before
     fun setup() {
@@ -31,19 +31,6 @@ class ApiModelTest {
         Assert.assertEquals(userInfoMock.website, "hildegard.org")
     }
 
-    /** Test for Adress Data Class */
-    @Test
-    fun testAddressInfo() {
-
-        Assert.assertEquals(userInfoMock.address.street, "Kulas Light")
-        Assert.assertEquals(userInfoMock.address.suite, "Apt. 556")
-        Assert.assertEquals(userInfoMock.address.city, "Gwenborough")
-        Assert.assertEquals(userInfoMock.address.zipcode, "92998-3874")
-        // Assert.assertEquals(userInfoMock.address.geo.lat, (Long) 37.3159)
-        // Assert.assertEquals(userInfoMock.address.geo.lng, (Long)81.1496)
-
-    }
-
     /** Test for Company Data Class */
     @Test
     fun testCompanyWrongInfo() {
@@ -52,6 +39,5 @@ class ApiModelTest {
         Assert.assertNotEquals(userInfoMock.company.catchPhrase, "Multi-layered client-server ")
         Assert.assertNotEquals(userInfoMock.company.bs, "harness real-time ")
     }
-
 }
 

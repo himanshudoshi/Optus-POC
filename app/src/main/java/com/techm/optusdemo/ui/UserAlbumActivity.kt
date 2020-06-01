@@ -39,6 +39,7 @@ class UserAlbumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //data binding
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_user_image)
+        showLoadingView()
         setUpView()
     }
 
@@ -47,12 +48,10 @@ class UserAlbumActivity : AppCompatActivity() {
      */
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setUpView() {
-        progressBar.visibility = View.VISIBLE
         linearLayoutManager = LinearLayoutManager(this)
         mBindings.imageRecyclerView.layoutManager = linearLayoutManager
         val bundle = intent
         id = bundle.getStringExtra("id")
-
         image_recyclerView.layoutManager = LinearLayoutManager(this)
         album_id.text = (getString(R.string.album_id) + id)
         if (Utils.hasNetwork(this) == true) {
@@ -63,8 +62,8 @@ class UserAlbumActivity : AppCompatActivity() {
                 getString(R.string.internet_connection_not_available),
                 Toast.LENGTH_SHORT
             ).show()
+            hideLoadingView()
         }
-        progressBar.visibility = View.INVISIBLE
     }
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */
@@ -99,4 +98,15 @@ class UserAlbumActivity : AppCompatActivity() {
                     })
         })
     }
+
+    /** show ProgressBar while data fetching **/
+    private fun showLoadingView() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    /** hide ProgressBar text while data fetching **/
+    private fun hideLoadingView() {
+        progressBar?.visibility = View.INVISIBLE
+    }
+
 }

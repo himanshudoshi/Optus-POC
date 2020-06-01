@@ -35,12 +35,12 @@ class UserInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //data binding
         mBindings = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        showLoadingView()
         linearLayoutManager = LinearLayoutManager(this)
         mBindings!!.userInfoRecyclerView.layoutManager = linearLayoutManager
         if (Utils.hasNetwork(this) == true) {
-            progressBar.visibility = View.VISIBLE
             getUserInfoData()
-            progressBar.visibility = View.INVISIBLE
+            hideLoadingView()
         } else makeText(
             this,
             getString(R.string.internet_connection_not_available),
@@ -50,7 +50,6 @@ class UserInfoActivity : AppCompatActivity() {
 
     /** Initialize ViewModel and fetch data from viewModel to Activity. */
     private fun getUserInfoData() {
-
         //live data
         userRepository = UserRepository()
         userFactory = UserViewModelFactory(userRepository)
@@ -68,6 +67,16 @@ class UserInfoActivity : AppCompatActivity() {
                     }
                 })
         })
+    }
+
+    /** show ProgressBar while data fetching **/
+    private fun showLoadingView() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    /** hide ProgressBar text while data fetching **/
+    private fun hideLoadingView() {
+        progressBar?.visibility = View.INVISIBLE
     }
 }
 
